@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="icon" type="image/svg" href="images/list_12966974.png">
+</head>
+<body>
+    <div class="side">
+        <h1 class="title">To Do List</h1>
+        <div class="projects">
+            <div class="projects-header">
+                <h3 class="sub-title">Projects</h3>
+                <button class="btn add-project">add project</button>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <button class="btn add-task">add task</button>
+    </div>
+    <dialog class="project-modal">
+        <form class="project-form" action="" method="dialog">
+            <div class="i">
+                <label for="name">Name of the project: </label>
+                <input id="name">
+            </div>
+            <div>
+                <button class="btn close-project" id="closeBtn">Close</button>
+                <button class="btn confirm-project" id="confirmBtn">Confirm</button>
+            </div>
+        </form>
+    </dialog>
+</body>
+</html>
