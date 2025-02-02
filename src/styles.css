@@ -130,9 +130,3 @@ body {
 .project-modal input {
     padding: 10px 4px;
 }
-
-.i {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
