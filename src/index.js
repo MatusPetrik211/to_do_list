@@ -1,6 +1,7 @@
 import "./styles.css"
 
-document.querySelector(".confirm-project").addEventListener("click", displayProject);
+document.querySelector(".confirm-project").addEventListener("click", displayProjects);
+document.querySelector(".add-project").addEventListener("click", showProjectModal);
 
 function createProject() {
     const tasks = [];
@@ -13,22 +14,25 @@ function createProject() {
     return {name, addTask};
 }
 
-function displayProject(name) {
-    const project = createProject();
-
-    const projectsContainer = document.query
-    const projectDiv = document.createElement("div");
-    
-    
-}
-
-displayProject();
-
 function createTask(title, description, priority, check) {
     return { title, description, priority, check };
 }
 
-document.querySelector(".add-project").addEventListener("click", showProjectModal);
+function displayProjects(name) {
+    const project = createProject();
+
+    const projectContainer = document.querySelector(".project-container");
+    const projectDiv = document.createElement("div");
+    projectDiv.classList.add("project-div");
+
+    const projectName = document.createElement("h1");
+    projectName.classList.add("project-name");
+    projectName.textContent = project.name;
+    projectDiv.append(projectName);
+
+
+    projectContainer.appendChild(projectDiv);
+}
 
 function showProjectModal() {
     const modal = document.querySelector(".project-modal");
