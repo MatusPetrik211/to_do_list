@@ -20,10 +20,13 @@
         </div>
     </div>
     <div class="main">
+        <div class="task-container">
+
+        </div>
         <button class="btn add-task">add task</button>
     </div>
     <dialog class="project-modal">
-        <form class="project-form" action="" method="dialog">
+        <form action="" class="project-form" method="dialog">
             <div>
                 <label for="project-name">Name of the project: </label>
                 <input id="project-name">
@@ -31,6 +34,48 @@
             <div>
                 <button class="btn close-project" id="closeBtn">Close</button>
                 <button class="btn confirm-project" id="confirmBtn">Confirm</button>
+            </div>
+        </form>
+    </dialog>
+    <dialog class="task-modal">
+        <form action="" class="task-form" method="dialog">
+            <div class="text-input">
+                <label for="task-name">Name: </label>
+                <input id="task-name">
+            </div>
+
+            <div class="text-input">
+                <label for="task-description">Description: </label>
+                <textarea name="task-description" id="task-description" rows=4 ></textarea>
+            </div>
+
+            <div class="text-input">
+                <label for="due-date">Date: </label>
+                <input id="due-date" type="date">
+            </div>
+
+            <div>
+                <p>Priority: </p>
+                
+                <div class="priority-container">
+                    <div>
+                        <input type="radio" id="low" name="priority" value="low">
+                        <label for="low" class="radio-label">low</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="medium" name="priority" value="medium">
+                        <label for="medium" class="radio-label">medium</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="high" name="priority" value="high">
+                        <label for="high" class="radio-label">high</label>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button class="btn close-task">Close</button>
+                <button class="btn confirm-task">Confirm</button>
             </div>
         </form>
     </dialog>

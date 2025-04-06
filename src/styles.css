@@ -2,7 +2,7 @@
     --blue: #008DDA;
     --medium-blue: #41C9E2;
     --light-blue: #ACE2E1;
-    --dark-blue: #50749f;
+    --dark-blue: #4897cb;
     --light: #F7EEDD;
     --red: #e24a4a;
     --green: #59d859;
@@ -97,32 +97,32 @@ body {
     align-self: center;
 }
 
-.close-project, .confirm-project {
+.close-project, .confirm-project, .close-task, .confirm-task {
     padding: 6px 12px;
     font-size: 16px;
 }
 
-.close-project {
+.close-project, .close-task {
     background-color: var(--red);
 }
 
-.close-project:hover {
+.close-project:hover, .close-task:hover {
     background-color: #ec6767;
 }
 
-.close-project:active {
+.close-project:active, .close-task:active {
     background-color: #ff8181;
 }
 
-.confirm-project {
+.confirm-project, .confirm-task {
     background-color: var(--green);
 }
 
-.confirm-project:hover {
+.confirm-project:hover, .confirm-task:hover {
     background-color: #78ee78;
 }
 
-.confirm-project:active {
+.confirm-project:active, .confirm-task:active {
     background-color: #98ff98;
 }
 
@@ -138,6 +138,11 @@ body {
     margin-top: 20px;
 }
 
+#project-name {
+    position: relative;
+    bottom: 3px;
+}
+
 .project-div {
     display: flex;
     align-items: center;
@@ -145,11 +150,96 @@ body {
     height: 50px;
     padding-left: 10px;
 
-    background-color: var(--light-blue);
+    background-color: var(--dark-blue);
+    color: white;
     border-radius: 4px;
     font-size: 14px;
 }
 
 .project-div:hover {
-    background-color: #a1d5d4;
+    background-color: #4086b5;
+    cursor: pointer;
 }
+
+.project-div:active {
+    background-color: #3e82b0;
+    cursor: pointer;
+}
+
+.task-modal {
+    background-color: var(--light-blue);
+    font-size: 30px;
+    font-weight: bold;
+    padding: 24px;
+    border: none;
+    border-radius: 10px;
+    
+    justify-self: center;
+    align-self: center;
+}
+
+.task-form{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.priority-container {
+    display: flex;
+    gap: 20px;
+}
+
+.text-input {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type=radio] {
+    transform: scale(1.6);
+}
+
+.radio-label {
+    font-size: 16px;
+}
+
+input[type=checkbox] {
+    transform: scale(2);
+    position: relative;
+    bottom: 3px;
+}
+
+.task-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    
+    height: 100vh;
+    padding: 20px 25px;
+}
+
+.task-div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+
+    width: 100%;
+    height: 10%;
+    border-radius: 10px;
+
+    color: white;
+    background-color: var(--light-blue);
+}
+
+.task-div:hover {
+    background-color: #a7dbda;
+    cursor: pointer;
+}
+
+.task-div:active {
+    background-color: #9fd0cf;
+    cursor: pointer;
+}
+
+
