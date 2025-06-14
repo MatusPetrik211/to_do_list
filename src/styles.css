@@ -3,6 +3,7 @@
     --medium-blue: #41C9E2;
     --light-blue: #ACE2E1;
     --dark-blue: #4897cb;
+    --very-dark-blue: #244860;
     --light: #F7EEDD;
     --red: #e24a4a;
     --green: #59d859;
@@ -63,7 +64,6 @@ body {
 
 .btn:hover {
     transition: 0.1s linear;
-    cursor: pointer;
     background-color: rgb(69, 174, 255);
 }
 
@@ -145,10 +145,11 @@ body {
 
 .project-div {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 50px;
-    padding-left: 10px;
+    padding: 10px;
 
     background-color: var(--dark-blue);
     color: white;
@@ -157,13 +158,7 @@ body {
 }
 
 .project-div:hover {
-    background-color: #4086b5;
-    cursor: pointer;
-}
-
-.project-div:active {
-    background-color: #3e82b0;
-    cursor: pointer;
+    background-color: #4086b5;   
 }
 
 .task-modal {
@@ -220,6 +215,7 @@ input[type=checkbox] {
 
 .task-div {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 12px;
     padding: 12px;
@@ -234,12 +230,47 @@ input[type=checkbox] {
 
 .task-div:hover {
     background-color: #a7dbda;
-    cursor: pointer;
 }
 
-.task-div:active {
-    background-color: #9fd0cf;
-    cursor: pointer;
+.delete-button-project {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: flex-end;
+
+    padding-bottom: 4px;
+    width: 20px;
+    height: 20px;
+    font-size: 24px;
+
+    border: none;
+    background-color: inherit;
+    color: var(--very-dark-blue);
+    font-family: sans-serif;
 }
 
+.delete-button-task {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+    padding-bottom: 4px;
+    width: 30px;
+    height: 30px;
+    font-size: 34px;
+
+    border: none;
+    background-color: inherit;
+    color: var(--very-dark-blue);
+    font-family: sans-serif;
+}
+
+.delete-button-project:hover {
+    cursor: pointer;
+    font-size: 26px;
+}
+
+.delete-button-task:hover {
+    font-size: 36px;
+    cursor: pointer;
+}

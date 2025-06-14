@@ -29,10 +29,10 @@
         <form action="" class="project-form" method="dialog">
             <div>
                 <label for="project-name">Name of the project: </label>
-                <input id="project-name">
+                <input id="project-name" required>
             </div>
             <div>
-                <button class="btn close-project" id="closeBtn">Close</button>
+                <button class="btn close-project" id="closeBtn" formnovalidate>Close</button>
                 <button class="btn confirm-project" id="confirmBtn">Confirm</button>
             </div>
         </form>
@@ -40,18 +40,13 @@
     <dialog class="task-modal">
         <form action="" class="task-form" method="dialog">
             <div class="text-input">
-                <label for="task-name">Name: </label>
-                <input id="task-name">
+                <label for="task-name">*Name: </label>
+                <input id="task-name" required>
             </div>
 
             <div class="text-input">
-                <label for="task-description">Description: </label>
-                <textarea name="task-description" id="task-description" rows=4 ></textarea>
-            </div>
-
-            <div class="text-input">
-                <label for="due-date">Date: </label>
-                <input id="due-date" type="date">
+                <label for="due-date">*Date: </label>
+                <input id="due-date" type="date" required>
             </div>
 
             <div>
@@ -73,8 +68,13 @@
                 </div>
             </div>
 
+            <div class="text-input">
+                <label for="task-description">Description: </label>
+                <textarea name="task-description" id="task-description" rows=4 ></textarea>
+            </div>
+
             <div>
-                <button class="btn close-task">Close</button>
+                <button class="btn close-task" formnovalidate>Close</button>
                 <button class="btn confirm-task">Confirm</button>
             </div>
         </form>

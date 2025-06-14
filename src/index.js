@@ -15,10 +15,16 @@ let currentProject = null;
 function createProject() {
     const tasks = [];
     const name = document.querySelector("#project-name").value;
-    
-    const newProject = { name, tasks};
-    projects.push(newProject);
 
+    if (name.trim() == "") {
+        return
+    }
+    
+    const newProject = {name, tasks};
+    currentProject = newProject;
+    displayTasks(currentProject);
+
+    projects.push(newProject);
     displayProjects();
 }
 
@@ -31,6 +37,10 @@ function createTask(project) {
 
     if (document.querySelector("input[name='priority']:checked")) {
         priority = document.querySelector("input[name='priority']:checked").value;
+    }
+
+    if (name.trim() == "" || date == "") {
+        return
     }
 
     project.tasks.push({name, description, date, priority, finished});
@@ -46,10 +56,19 @@ function displayProjects() {
         const projectDiv = document.createElement("div");
         projectDiv.classList.add("project-div");
 
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("delete-button-project");
+
+        deleteButton.append("x");
+
         const projectName = document.createElement("h1");
         projectName.classList.add("project-name");
         projectName.textContent = project.name;
+
         projectDiv.append(projectName);
+        projectDiv.append(deleteButton);
+
+        removeParentElement(deleteButton);
 
         projectDiv.addEventListener("click", () => {
             currentProject = project;
@@ -72,6 +91,11 @@ function displayTasks(project) {
         taskName.classList.add("task-name");
         taskName.textContent = task.name;
         taskDiv.append(taskName);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("delete-button-task");
+        deleteButton.append("x");
+        taskDiv.append(deleteButton);
     
         taskContainer.append(taskDiv);
     }
@@ -92,3 +116,32 @@ function showTaskModal() {
     form.reset();
     modal.showModal();
 } 
+
+function removeParentElement(deleteButton) {
+    deleteButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+
+        const parent = deleteButton.parentElement;
+        const projectName = parent.querySelector(".project-name").textContent;
+        const index = 0;
+
+        for (let project in projects) {
+            if (project.name === projectName){
+                index = projects.indexOf(project);
+            } 
+        }
+        
+        if (index > -1) {
+            projects.splice(index, 1);
+
+            if (currentProject && currentProject.name === projectName) {
+                currentProject = null;
+                document.querySelector(".task-container").textContent = "";
+            }
+        }
+
+        parent.remove();
+
+        displayProjects();
+    })
+}
