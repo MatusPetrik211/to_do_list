@@ -19,6 +19,12 @@ function createProject() {
     if (name.trim() == "") {
         return
     }
+
+    console.log(checkSameNames(name, projects));
+    if (checkSameNames(name, projects)) {
+        alert("There's already a project with that name. Try another one.");
+        return
+    }
     
     const newProject = {name, tasks};
     currentProject = newProject;
@@ -43,7 +49,13 @@ function createTask(project) {
         return
     }
 
+    if (checkSameNames(name, project.tasks)) {
+        alert("There's already a task with that name. Try another one.");
+        return
+    }
+
     project.tasks.push({name, description, date, priority, finished});
+    console.log(currentProject);
 
     displayTasks(project);
 }
@@ -68,7 +80,7 @@ function displayProjects() {
         projectDiv.append(projectName);
         projectDiv.append(deleteButton);
 
-        removeParentElement(deleteButton);
+        removeProject(deleteButton);
 
         projectDiv.addEventListener("click", () => {
             currentProject = project;
@@ -83,7 +95,7 @@ function displayTasks(project) {
     const taskContainer = document.querySelector(".task-container");
     taskContainer.textContent = "";
 
-    for (let task of project.tasks) {
+    for (const task of project.tasks) {
         const taskDiv = document.createElement("div");
         taskDiv.classList.add("task-div");
     
@@ -98,6 +110,8 @@ function displayTasks(project) {
         taskDiv.append(deleteButton);
     
         taskContainer.append(taskDiv);
+
+        removeTask(deleteButton);
     }
 }
 
@@ -117,15 +131,15 @@ function showTaskModal() {
     modal.showModal();
 } 
 
-function removeParentElement(deleteButton) {
+function removeProject(deleteButton) {
     deleteButton.addEventListener("click", (e) => {
         e.stopPropagation();
 
-        const parent = deleteButton.parentElement;
-        const projectName = parent.querySelector(".project-name").textContent;
-        const index = 0;
+        const projectDiv = deleteButton.parentElement;
+        const projectName = projectDiv.querySelector(".project-name").textContent;
+        let index = 0;
 
-        for (let project in projects) {
+        for (let project of projects) {
             if (project.name === projectName){
                 index = projects.indexOf(project);
             } 
@@ -140,8 +154,45 @@ function removeParentElement(deleteButton) {
             }
         }
 
-        parent.remove();
+        projectDiv.remove();
 
         displayProjects();
     })
+}
+
+function removeTask(deleteButton) {
+    deleteButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+
+        const taskDiv = deleteButton.parentElement;
+        const taskName = taskDiv.querySelector(".task-name").textContent;
+        let index = 0;
+
+
+        for (let task of currentProject.tasks) {
+            if (task.name === taskName){
+                index = currentProject.tasks.indexOf(task);
+            } 
+        }
+        
+        if (index > -1) {
+            currentProject.tasks.splice(index, 1);
+        }
+
+        console.log(currentProject.tasks);
+
+        taskDiv.remove();
+
+        displayTasks(currentProject);
+    })
+}
+
+function checkSameNames(newName, arr) {
+    const nameList = arr.map(element => element.name);
+    for (const name of nameList) {
+        if (newName === name) {
+            return true
+        }
+    }
+    return false
 }

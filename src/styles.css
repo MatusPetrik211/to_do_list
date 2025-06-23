@@ -10,7 +10,7 @@
 }
 
 * {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -266,11 +266,13 @@ input[type=checkbox] {
 }
 
 .delete-button-project:hover {
+    transition: 0.4ms;
     cursor: pointer;
-    font-size: 26px;
+    font-size: 28px;
 }
 
 .delete-button-task:hover {
-    font-size: 36px;
+    transition: 0.4ms;
+    font-size: 38px;
     cursor: pointer;
 }
