@@ -12,16 +12,17 @@ document.querySelector(".confirm-task").addEventListener("click", () => {
 const projects = [];
 let currentProject = null;
 
+createProject();
+displayProjects();
+
 function createProject() {
     const tasks = [];
-    const name = document.querySelector("#project-name").value;
-
-    if (name.trim() == "") {
-        return
-    }
-
-    console.log(checkSameNames(name, projects));
+    const name = document.querySelector("#project-name").value ? document.querySelector("#project-name").value : "default project";
+    
     if (checkSameNames(name, projects)) {
+        if (name == "default project") {
+            return
+        }
         alert("There's already a project with that name. Try another one.");
         return
     }
