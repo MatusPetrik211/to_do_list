@@ -69,6 +69,10 @@ function displayProjects() {
         const projectDiv = document.createElement("div");
         projectDiv.classList.add("project-div");
 
+        if (project === currentProject) {
+            projectDiv.style.backgroundColor = "#3d7fac";
+        }
+
         const deleteButton = document.createElement("button");
         deleteButton.classList.add("delete-button-project");
 
@@ -84,7 +88,12 @@ function displayProjects() {
         removeProject(deleteButton);
 
         projectDiv.addEventListener("click", () => {
+            const projectDivs = document.querySelectorAll(".project-div");
+            setDivsToNormalColors(projectDivs);
+            
             currentProject = project;
+            projectDiv.style.backgroundColor = "#3d7fac";
+
             displayTasks(project);
         });
 
@@ -196,4 +205,10 @@ function checkSameNames(newName, arr) {
         }
     }
     return false
+}
+
+function setDivsToNormalColors(divs) {
+    divs.forEach(div => {
+        div.style.backgroundColor = "#4897cb";
+    });
 }
