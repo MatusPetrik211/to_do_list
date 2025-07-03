@@ -1,7 +1,7 @@
 :root {
     --blue: #008DDA;
     --medium-blue: #41C9E2;
-    --light-blue: #ACE2E1;
+    --light-blue: #93dfdd;
     --dark-blue: #4897cb;
     --very-dark-blue: #244860;
     --light: #F7EEDD;
@@ -27,7 +27,7 @@ body {
     z-index: 0;
 
     background-color: var(--medium-blue);
-    box-shadow: 4px 0px 5px var(--dark-blue);
+    box-shadow: 4px 0px 5px rgb(176, 176, 176);
 }
 
 .main {
@@ -226,10 +226,11 @@ input[type=checkbox] {
 
     color: white;
     background-color: var(--light-blue);
+    border: solid 2px;
 }
 
 .task-div:hover {
-    background-color: #a7dbda;
+    background-color: #94e1e0;
 }
 
 .delete-button-project {
@@ -254,7 +255,7 @@ input[type=checkbox] {
     justify-content: center;
     align-items: center;
 
-    padding-bottom: 4px;
+    padding-bottom: 12px;
     width: 30px;
     height: 30px;
     font-size: 34px;
@@ -275,4 +276,11 @@ input[type=checkbox] {
     transition: 0.4ms;
     font-size: 38px;
     cursor: pointer;
+}
+
+.right-task-div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 20px;
 }

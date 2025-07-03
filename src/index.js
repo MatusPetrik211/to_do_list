@@ -46,7 +46,7 @@ function createTask(project) {
         priority = document.querySelector("input[name='priority']:checked").value;
     }
 
-    if (name.trim() == "" || date == "") {
+    if (name.trim() == "" || date == "" || priority == "None") {
         return
     }
 
@@ -90,7 +90,7 @@ function displayProjects() {
         projectDiv.addEventListener("click", () => {
             const projectDivs = document.querySelectorAll(".project-div");
             setDivsToNormalColors(projectDivs);
-            
+
             currentProject = project;
             projectDiv.style.backgroundColor = "#3d7fac";
 
@@ -108,16 +108,37 @@ function displayTasks(project) {
     for (const task of project.tasks) {
         const taskDiv = document.createElement("div");
         taskDiv.classList.add("task-div");
+
+        if (task.priority == "low") {
+            taskDiv.style.borderColor = "#3cc900";
+        }
+        else if (task.priority == "medium") {
+            taskDiv.style.borderColor = "#ffb921";
+        }
+        else if (task.priority == "high") {
+            taskDiv.style.borderColor = "#c91e00";
+        }
     
         const taskName = document.createElement("h1");
         taskName.classList.add("task-name");
         taskName.textContent = task.name;
         taskDiv.append(taskName);
 
+        const rightTaskDiv = document.createElement("div");
+        rightTaskDiv.height = "200px";
+        taskDiv.append(rightTaskDiv);
+        rightTaskDiv.classList.add("right-task-div")
+
         const deleteButton = document.createElement("button");
         deleteButton.classList.add("delete-button-task");
         deleteButton.append("x");
-        taskDiv.append(deleteButton);
+
+        const check = document.createElement("input");
+        check.classList.add("finished");
+        check.type = "checkbox";
+
+        rightTaskDiv.append(check);
+        rightTaskDiv.append(deleteButton);
     
         taskContainer.append(taskDiv);
 
