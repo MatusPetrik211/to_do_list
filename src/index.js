@@ -196,7 +196,8 @@ function removeTask(deleteButton) {
         e.stopPropagation();
 
         const taskDiv = deleteButton.parentElement;
-        const taskName = taskDiv.querySelector(".task-name").textContent;
+        console.log(taskDiv.querySelector(".task-name"));
+        const taskName = taskDiv.querySelector(".task-name");
         let index = 0;
 
 
