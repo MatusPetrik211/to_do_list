@@ -22,7 +22,7 @@ body {
 }
 
 .side {
-    height: 100vh;
+    height: 100%;
     padding: 20px;
     z-index: 0;
 
@@ -31,7 +31,7 @@ body {
 }
 
 .main {
-    height: 100vh;
+    height: 100%;
 
     background-color: var(--light);
 }
@@ -72,7 +72,7 @@ body {
 }
 
 .add-task {
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     right: 30px;
 
@@ -230,7 +230,7 @@ input[type=checkbox] {
 }
 
 .task-div:hover {
-    background-color: #94e1e0;
+    background-color: #95c9c9;
 }
 
 .delete-button-project {
@@ -283,4 +283,31 @@ input[type=checkbox] {
     align-items: center;
     gap: 16px;
     height: 20px;
+}
+
+.task-details {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    position: absolute;
+    left: 30%;
+    top: 20%;
+    width: 40%;
+    color: white;
+    background-color: var(--dark-blue);
+    z-index: 1;
+    user-select: none;
+    border-radius: 30px;
+    padding: 40px;
+}
+
+.task-details-name {
+    font-size: 50px;
+}
+
+.desc {
+    overflow-wrap: break-word;
+    min-width: 220px;
 }

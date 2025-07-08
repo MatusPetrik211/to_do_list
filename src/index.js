@@ -15,6 +15,15 @@ let currentProject = null;
 createProject();
 displayProjects();
 
+document.addEventListener("click", (e) => {
+    if (document.querySelector(".task-details") && !e.target.matches(".task-details")) {
+        let taskDetails = document.querySelector(".task-details");
+        taskDetails.remove();
+
+        console.log("hallo");
+    }
+});
+
 function createProject() {
     const tasks = [];
     const name = document.querySelector("#project-name").value ? document.querySelector("#project-name").value : "default project";
@@ -136,14 +145,70 @@ function displayTasks(project) {
         const check = document.createElement("input");
         check.classList.add("finished");
         check.type = "checkbox";
+        check.addEventListener("click", () => {
+            task.finished = !task.finished;
+            // alert(task.finished);
+        });
 
         rightTaskDiv.append(check);
         rightTaskDiv.append(deleteButton);
-    
-        taskContainer.append(taskDiv);
 
+        taskDiv.addEventListener("click", (e) => {
+            let previousTaskDetails = document.querySelector(".task-details");
+            if (previousTaskDetails) {
+                previousTaskDetails.remove();
+            }
+            displayTaskDetails(task);
+            e.stopPropagation();
+        }
+        );
+
+        taskContainer.append(taskDiv);
         removeTask(deleteButton);
     }
+}
+
+function displayTaskDetails(task) {
+    const body = document.querySelector("body");
+
+    const details = document.createElement("div");
+    details.classList.add("task-details");
+    details.style.visibility = "visible";
+    
+    const name = document.createElement("h1");
+    name.textContent = task.name;
+    name.classList.add("task-details-name");
+    details.append(name);
+
+    const date = document.createElement("h1");
+    date.textContent = `Due date: ${task.date}`;
+    details.append(date);
+
+    const priority = document.createElement("h1");
+    priority.textContent = `Priority: ${task.priority}`;
+    details.append(priority);
+
+    const check = document.createElement("h1");
+    if (task.finished) {
+        check.textContent = "Finished ✅";
+    } 
+    else {
+        check.textContent = "Not finished ❌";
+    }
+    details.append(check);
+
+    const descriptionDiv = document.createElement("div");
+    const descriptionTitle = document.createElement("h1");
+    descriptionTitle.textContent = "Description:";
+    const description = document.createElement("p");
+    description.textContent = task.description;
+    description.classList.add("desc");
+
+    descriptionDiv.append(descriptionTitle);
+    descriptionDiv.append(description);
+
+    details.append(descriptionDiv);
+    body.append(details);
 }
 
 function showProjectModal() {
@@ -196,7 +261,6 @@ function removeTask(deleteButton) {
         e.stopPropagation();
 
         const taskDiv = deleteButton.parentElement;
-        console.log(taskDiv.querySelector(".task-name"));
         const taskName = taskDiv.querySelector(".task-name");
         let index = 0;
 
