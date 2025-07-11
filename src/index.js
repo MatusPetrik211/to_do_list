@@ -17,7 +17,8 @@ createProject();
 displayProjects();
 
 document.addEventListener("click", (e) => {
-    if (document.querySelector(".task-details") && !e.target.matches(".task-details")) {
+    e.stopPropagation();
+    if (document.querySelector(".task-details") && !e.target.matches(".task-details-inside")) {
         let taskDetails = document.querySelector(".task-details");
         taskDetails.remove();
 
@@ -54,7 +55,7 @@ function createTask(project) {
     let months = dateString[1];
     let years = dateString[2]
     let date = format(new Date(days, months - 1, years), "dd/MM/yyyy");
-    
+
     const finished = false;
     let priority = "None";
 
@@ -180,19 +181,23 @@ function displayTaskDetails(task) {
 
     const details = document.createElement("div");
     details.classList.add("task-details");
+    details.classList.add("task-details-inside");
     details.style.visibility = "visible";
     
     const name = document.createElement("h1");
     name.textContent = task.name;
     name.classList.add("task-details-name");
+    name.classList.add("task-details-inside");
     details.append(name);
 
     const date = document.createElement("h1");
     date.textContent = `Due date: ${task.date}`;
+    date.classList.add("task-details-inside");
     details.append(date);
 
     const priority = document.createElement("h1");
     priority.textContent = `Priority: ${task.priority}`;
+    priority.classList.add("task-details-inside");
     details.append(priority);
 
     const check = document.createElement("h1");
@@ -202,17 +207,26 @@ function displayTaskDetails(task) {
     else {
         check.textContent = "Not finished ❌";
     }
+    check.classList.add("task-details-inside");
     details.append(check);
 
     const descriptionDiv = document.createElement("div");
+    descriptionDiv.classList.add("task-details-inside");
     const descriptionTitle = document.createElement("h1");
     descriptionTitle.textContent = "Description:";
+    descriptionTitle.classList.add("task-details-inside");
     const description = document.createElement("p");
     description.textContent = task.description;
     description.classList.add("desc");
+    description.classList.add("task-details-inside");
 
     descriptionDiv.append(descriptionTitle);
     descriptionDiv.append(description);
+
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("display-task-delete-btn");
+    deleteButton.append("x");
+    details.append(deleteButton);
 
     details.append(descriptionDiv);
     body.append(details);

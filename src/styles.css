@@ -311,3 +311,24 @@ input[type=checkbox] {
     overflow-wrap: break-word;
     width: 220px;
 }
+
+.display-task-delete-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    height: 20px;
+    width: 20px;
+    font-size: 28px;
+
+    border: none;
+    background-color: inherit;
+    color: var(--very-dark-blue);
+    font-family: sans-serif;
+}
+
+.display-task-delete-btn:hover {
+    transition: 0.4ms;
+    font-size: 32px;
+    cursor: pointer;
+}
