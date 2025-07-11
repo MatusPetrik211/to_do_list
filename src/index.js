@@ -1,4 +1,5 @@
 import "./styles.css"
+import { format, compareAsc } from "date-fns";
 
 document.querySelector(".add-project").addEventListener("click", showProjectModal);
 document.querySelector(".confirm-project").addEventListener("click", createProject);
@@ -47,7 +48,13 @@ function createProject() {
 function createTask(project) {
     const name = document.querySelector("#task-name").value;
     const description = document.querySelector("#task-description").value;
-    const date = document.querySelector("#due-date").value;
+
+    let dateString = document.querySelector("#due-date").value.split("-");
+    let days = dateString[0];
+    let months = dateString[1];
+    let years = dateString[2]
+    let date = format(new Date(days, months - 1, years), "dd/MM/yyyy");
+    
     const finished = false;
     let priority = "None";
 
@@ -273,6 +280,10 @@ function removeTask(deleteButton) {
         
         if (index > -1) {
             currentProject.tasks.splice(index, 1);
+        }
+
+        if (document.querySelector(".task-details")) {
+            document.querySelector(".task-details").remove();
         }
 
         console.log(currentProject.tasks);
