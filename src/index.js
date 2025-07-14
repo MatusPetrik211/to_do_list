@@ -1,5 +1,5 @@
 import "./styles.css"
-import { format, compareAsc } from "date-fns";
+import { format, getYear, getMonth, getDate, parse } from "date-fns";
 
 document.querySelector(".add-project").addEventListener("click", showProjectModal);
 document.querySelector(".confirm-project").addEventListener("click", createProject);
@@ -53,8 +53,16 @@ function createTask(project) {
     let dateString = document.querySelector("#due-date").value.split("-");
     let days = dateString[0];
     let months = dateString[1];
-    let years = dateString[2]
-    let date = format(new Date(days, months - 1, years), "dd/MM/yyyy");
+    let years = dateString[2];
+    let date;
+
+    try {
+        date = format(new Date(days, months - 1, years), "dd/MM/yyyy");
+    }
+    catch (err) {
+        alert("Invalid time");
+        return
+    }
 
     const finished = false;
     let priority = "None";
@@ -150,16 +158,26 @@ function displayTasks(project) {
         deleteButton.classList.add("delete-button-task");
         deleteButton.append("x");
 
+        const editIcon = document.createElement("i");
+        editIcon.classList.add("fa-solid", "fa-pen", "fa-lg", "edit-icon");
+        editIcon.style.color = "#113d5f";
+
         const check = document.createElement("input");
         check.classList.add("finished");
         check.type = "checkbox";
-        check.addEventListener("click", () => {
+        if (task.finished) {
+            check.checked = true;
+        }
+        check.addEventListener("click", (e) => {
+            e.stopPropagation();
             task.finished = !task.finished;
             // alert(task.finished);
         });
 
-        rightTaskDiv.append(check);
+        // rightTaskDiv.innerHTML = '<i class="fa-solid fa-pen fa-lg edit-icon" style="color: #113d5f;"></i>';
         rightTaskDiv.append(deleteButton);
+        rightTaskDiv.append(editIcon);
+        rightTaskDiv.append(check);
 
         taskDiv.addEventListener("click", (e) => {
             let previousTaskDetails = document.querySelector(".task-details");
@@ -171,8 +189,43 @@ function displayTasks(project) {
         }
         );
 
+        deleteButton.addEventListener("click", (e) => {
+            e.stopPropagation();
+            removeTask(task);
+        })
+
+        editIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            removeTask(task);
+            editTask(task);
+        });
+        
         taskContainer.append(taskDiv);
-        removeTask(deleteButton);
+    }
+}
+
+function editTask(task) {
+    showTaskModal();
+    document.querySelector("#task-name").value = task.name;
+    document.querySelector("#task-description").value = task.description;
+
+    const parsedDate = parse(task.date, "dd/MM/yyyy", new Date());
+    const yyyy = getYear(parsedDate);
+    const mm = String(getMonth(parsedDate) + 1).padStart(2, '0');
+    const dd = String(getDate(parsedDate)).padStart(2, '0');
+    const formattedDate = `${yyyy}-${mm}-${dd}`;
+
+    document.querySelector("#due-date").value = formattedDate;
+
+    const priority = task.priority;
+    if (priority === "low") {
+        document.querySelector("#low").checked = true;
+    }
+    else if (priority === "medium") {
+        document.querySelector("#medium").checked = true;
+    }
+    else if (priority === "high") {
+        document.querySelector("#high").checked = true;
     }
 }
 
@@ -277,35 +330,24 @@ function removeProject(deleteButton) {
     })
 }
 
-function removeTask(deleteButton) {
-    deleteButton.addEventListener("click", (e) => {
-        e.stopPropagation();
-
-        const taskDiv = deleteButton.parentElement;
-        const taskName = taskDiv.querySelector(".task-name");
-        let index = 0;
-
-
-        for (let task of currentProject.tasks) {
-            if (task.name === taskName){
-                index = currentProject.tasks.indexOf(task);
-            } 
+function removeTask(activeTask) {
+    const taskNamesNodes = document.querySelectorAll(".task-name");
+    for (let nameNode of taskNamesNodes) {
+        if (activeTask.name === nameNode.textContent) {
+            const parentDiv = nameNode.closest("div");
+            if (parentDiv) {
+                parentDiv.remove();
+            }
         }
-        
-        if (index > -1) {
+    }
+    let index = 0;
+
+    for (let task of currentProject.tasks) {
+        if (task.name === activeTask.name) {
+            index = currentProject.tasks.indexOf(task);
             currentProject.tasks.splice(index, 1);
         }
-
-        if (document.querySelector(".task-details")) {
-            document.querySelector(".task-details").remove();
-        }
-
-        console.log(currentProject.tasks);
-
-        taskDiv.remove();
-
-        displayTasks(currentProject);
-    })
+    }
 }
 
 function checkSameNames(newName, arr) {

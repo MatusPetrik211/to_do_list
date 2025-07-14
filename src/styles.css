@@ -332,3 +332,12 @@ input[type=checkbox] {
     font-size: 32px;
     cursor: pointer;
 }
+
+.edit-icon {
+    margin-bottom: 4px;
+    margin-left: -12px;
+}
+
+.edit-icon:hover {
+    cursor: pointer;
+}
