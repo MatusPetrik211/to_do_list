@@ -21,8 +21,6 @@ document.addEventListener("click", (e) => {
     if (document.querySelector(".task-details") && !e.target.matches(".task-details-inside")) {
         let taskDetails = document.querySelector(".task-details");
         taskDetails.remove();
-
-        console.log("hallo");
     }
 });
 
@@ -81,7 +79,6 @@ function createTask(project) {
     }
 
     project.tasks.push({name, description, date, priority, finished});
-    console.log(currentProject);
 
     displayTasks(project);
 }
@@ -171,10 +168,8 @@ function displayTasks(project) {
         check.addEventListener("click", (e) => {
             e.stopPropagation();
             task.finished = !task.finished;
-            // alert(task.finished);
         });
 
-        // rightTaskDiv.innerHTML = '<i class="fa-solid fa-pen fa-lg edit-icon" style="color: #113d5f;"></i>';
         rightTaskDiv.append(deleteButton);
         rightTaskDiv.append(editIcon);
         rightTaskDiv.append(check);
@@ -235,7 +230,6 @@ function displayTaskDetails(task) {
     const details = document.createElement("div");
     details.classList.add("task-details");
     details.classList.add("task-details-inside");
-    details.style.visibility = "visible";
     
     const name = document.createElement("h1");
     name.textContent = task.name;
@@ -335,9 +329,7 @@ function removeTask(activeTask) {
     for (let nameNode of taskNamesNodes) {
         if (activeTask.name === nameNode.textContent) {
             const parentDiv = nameNode.closest("div");
-            if (parentDiv) {
-                parentDiv.remove();
-            }
+            parentDiv.remove();
         }
     }
     let index = 0;
