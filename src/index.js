@@ -10,11 +10,18 @@ document.querySelector(".confirm-task").addEventListener("click", () => {
     }
 });
 
-const projects = [];
+let projects = JSON.parse(localStorage.getItem('projects')) || [];
 let currentProject = null;
 
-createProject();
-displayProjects();
+if (projects.length === 0) {
+    createProject();
+} else {
+    displayProjects();
+    if (projects.length > 0) {
+        currentProject = projects[0];
+        displayTasks(currentProject);
+    }
+}
 
 document.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -23,6 +30,10 @@ document.addEventListener("click", (e) => {
         taskDetails.remove();
     }
 });
+
+function saveToLocalStorage() {
+    localStorage.setItem("projects", JSON.stringify(projects));
+}
 
 function createProject() {
     const tasks = [];
@@ -41,6 +52,7 @@ function createProject() {
     displayTasks(currentProject);
 
     projects.push(newProject);
+    saveToLocalStorage();
     displayProjects();
 }
 
@@ -79,7 +91,7 @@ function createTask(project) {
     }
 
     project.tasks.push({name, description, date, priority, finished});
-
+    saveToLocalStorage();
     displayTasks(project);
 }
 
@@ -311,6 +323,7 @@ function removeProject(deleteButton) {
         
         if (index > -1) {
             projects.splice(index, 1);
+            saveToLocalStorage();
 
             if (currentProject && currentProject.name === projectName) {
                 currentProject = null;
@@ -338,6 +351,7 @@ function removeTask(activeTask) {
         if (task.name === activeTask.name) {
             index = currentProject.tasks.indexOf(task);
             currentProject.tasks.splice(index, 1);
+            saveToLocalStorage();
         }
     }
 }
