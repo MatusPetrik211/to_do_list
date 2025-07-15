@@ -174,12 +174,15 @@ function displayTasks(project) {
         const check = document.createElement("input");
         check.classList.add("finished");
         check.type = "checkbox";
+        alert(task.finished);
         if (task.finished) {
             check.checked = true;
         }
         check.addEventListener("click", (e) => {
             e.stopPropagation();
             task.finished = !task.finished;
+            check.checked = task.finished; // keep this synced
+            saveToLocalStorage();
         });
 
         rightTaskDiv.append(deleteButton);
