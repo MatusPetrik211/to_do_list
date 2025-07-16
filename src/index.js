@@ -174,7 +174,7 @@ function displayTasks(project) {
         const check = document.createElement("input");
         check.classList.add("finished");
         check.type = "checkbox";
-        alert(task.finished);
+
         if (task.finished) {
             check.checked = true;
         }
