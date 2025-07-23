@@ -181,7 +181,7 @@ function displayTasks(project) {
         check.addEventListener("click", (e) => {
             e.stopPropagation();
             task.finished = !task.finished;
-            check.checked = task.finished; // keep this synced
+            check.checked = task.finished;
             saveToLocalStorage();
         });
 
